@@ -1,0 +1,43 @@
+
+
+<section style="display: flex; flex-direction: row; justify-content:center;">
+<div class="card" style="width: 18rem; margin: 3em;" *ngFor="let i of packagestyles" #cardDiv id="{{i.packageStyleId}}" (click)="selectedType(cardDiv)">
+  <img class="card-img-top" src='https://localhost:7066/assets/img/packageimages/{{i.picture}}' alt="Card image cap">
+  <div class="card-body">
+    <p class="card-text">{{i.styleName}}</p>
+  </div>
+</div>
+</section>
+
+<section style="background-color: gainsboro;" *ngIf="sectionTrigger" >
+<div  style="display: flex; flex-direction: row; justify-content:center; " class="row row-cols-1 row-cols-md-3 g-4">
+  <div class="card" style="width: 18rem; margin: 3em;" *ngFor="let i of seletedPackage" #cardDiv id="{{i.packageId}}">
+    <img class="card-img-top" style="height: 15em;" src='https://localhost:7066/assets/img/packageimages/{{i.picture}}' alt="Card image cap">
+    <div class="card-body">
+      <p class="card-text">{{i.packName}}</p>
+      <p class="card-text">NT.{{i.price}}</p>
+    </div>
+    <div data-mdb-input-init class="form-outline" style=" margin-bottom: 2em;">
+      <input [value]="i.quantity" type="number" id="typeNumber" class="form-control" id="{{i.packageId}}" (change)="quantityChange($event, i)"/>
+      <div style="display: flex; justify-content:space-between;margin-top: 1em;">
+        <p style="margin-left: 1em;">總價:{{i.totalPrice}}</p>
+        <button style="margin-left: 1em;" type="button" class="btn btn-primary" id="bAddCart{{i.packageId}}"
+        (click)="addCart($event)">加入購物車</button>
+      </div>
+  </div>
+  </div>
+</div>
+
+<div *ngIf="display" style="position: sticky; bottom: 20px; width: 95%;">
+  <div class="alert alert-primary" style="margin: 0; height: 2em; display: flex; justify-content: space-between;" role="alert" *ngFor="let i of displayData"  >
+    <img class="card-img-top" style="height: 1em; width: 1em; margin: -10; padding: 0;border: 0;" src='https://localhost:7066/assets/img/packageimages/{{i.picture}}' alt="Card image cap">
+   {{i.packName}}
+   <p style="margin-top: 0.2em;">數量: {{i.quantity}}</p>
+    <button class="btn btn-primary" style="margin-top: 0.2em;">移除</button>
+  </div>
+</div>
+
+  <button type="button" class="btn btn-primary" style="margin-bottom: 2em; margin-left: 85%;"
+  (click)="orderList($event)">下一步</button>
+</section>
+
