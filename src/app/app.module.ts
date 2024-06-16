@@ -9,6 +9,7 @@ import { NavComponent } from './nav/nav.component';
 import { PTypeCardComponent } from './p-type-card/p-type-card.component';
 import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { FooterComponent } from './footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -16,6 +17,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     NavigationComponent,
     NavComponent,
     PTypeCardComponent,
+    FooterComponent,
   ],
   imports: [
     BrowserModule,
