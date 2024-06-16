@@ -28,16 +28,34 @@
   </div>
 </div>
 
-<div *ngIf="display" style="position: sticky; bottom: 20px; width: 95%;">
+<!-- <div *ngIf="display" style="position: sticky; bottom: 20px; width: 95%; margin-left: 2.5%;">
   <div class="alert alert-primary" style="margin: 0; height: 2em; display: flex; justify-content: space-between;" role="alert" *ngFor="let i of displayData"  >
     <img class="card-img-top" style="height: 1em; width: 1em; margin: -10; padding: 0;border: 0;" src='https://localhost:7066/assets/img/packageimages/{{i.picture}}' alt="Card image cap">
    {{i.packName}}
    <p style="margin-top: 0.2em;">數量: {{i.quantity}}</p>
-    <button class="btn btn-primary" style="margin-top: 0.2em;">移除</button>
+    <button class="btn btn-primary" style="margin-top: 0.2em;" id="storage{{i.packageId}}" (click)="removeItem($event)">移除</button>
   </div>
-</div>
+</div> -->
 
-  <button type="button" class="btn btn-primary" style="margin-bottom: 2em; margin-left: 85%;"
+<div *ngIf="display" class="accordion" id="accordionPanelsStayOpenExample" style="position: sticky; bottom: 20px; width: 95%; margin-left: 2.5%;">
+  <div class="accordion-item"  >
+    <h2 class="accordion-header">
+      <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne" (click)="isCollapsed = !isCollapsed">
+        購物車內容
+      </button>
+    </h2>
+    <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show" [@smoothCollapse]="isCollapsed?'initial':'final'">
+      <div class="accordion-body" style="display: flex; flex-direction: row; justify-content: space-between; padding: 0.5em;" *ngFor="let i of displayData">
+        <img class="card-img-top" style="height: 2.8em; width: 2.8em; margin: -10; padding: 0;border: 0;" src='https://localhost:7066/assets/img/packageimages/{{i.picture}}' alt="Card image cap">
+        <p>{{i.packName}}</p>
+        <p style="margin-top: 0.2em;">數量: {{i.quantity}}</p>
+        <i class="bi bi-x" style="font-size:2em"  id="storage{{i.packageId}}" (click)="removeItem($event)"></i>
+      </div>
+    </div>
+  </div>
+  </div>
+
+  <button type="button" class="btn btn-primary" style="margin-bottom: 2em; margin-top: 1em; margin-left: 85%;"
   (click)="orderList($event)">下一步</button>
 </section>
 

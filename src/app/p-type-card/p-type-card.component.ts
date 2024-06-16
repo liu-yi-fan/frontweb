@@ -4,16 +4,45 @@ import { packageType } from './../interface/packageType';
 import { UserServiceService } from './../user-service.service';
 import { Component } from '@angular/core';
 import { count, lastValueFrom } from 'rxjs';
+import {
+  trigger,
+  state,
+  style,
+  animate,
+  transition,
+} from '@angular/animations';
 
 @Component({
   selector: 'app-p-type-card',
   templateUrl: './p-type-card.component.html',
   styleUrls: ['./p-type-card.component.scss'],
+  animations: [
+    trigger('smoothCollapse', [
+      state(
+        'initial',
+        style({
+          height: '0',
+          overflow: 'hidden',
+          opacity: '0',
+        })
+      ),
+      state(
+        'final',
+        style({
+          overflow: 'hidden',
+          opacity: '1',
+        })
+      ),
+      transition('initial=>final', animate('550ms')),
+      transition('final=>initial', animate('550ms')),
+    ]),
+  ],
 })
 export class PTypeCardComponent {
   sectionTrigger = false;
   priceCount = 0;
   display = false;
+  isCollapsed = false;
 
   packagestyles: packageType[] = [];
   seletedPackage: selePackage[] = [];
@@ -27,6 +56,10 @@ export class PTypeCardComponent {
       this.packagestyles = data;
       console.log(this.packagestyles);
     });
+  }
+
+  toggleCollapse() {
+    this.isCollapsed = !this.isCollapsed;
   }
 
   selectedType(cardDiv: HTMLElement) {
@@ -100,7 +133,6 @@ export class PTypeCardComponent {
       // 添加新的项目到已有的数据中
       existingCartPackages.push(matchingItem);
 
-      // 保存更新后的数据到 sessionStorage
       sessionStorage.setItem(
         'cartPackage',
         JSON.stringify(existingCartPackages)
@@ -115,11 +147,27 @@ export class PTypeCardComponent {
       const chackSession = sessionStorage.getItem('cartPackage');
 
       this.displayData = JSON.parse(chackSession || '{}');
-      this.displayData.forEach((e) => console.log(e));
+      // this.displayData.forEach((e) => console.log(e));
+    }
+  }
+
+  removeItem(event: any) {
+    console.log(event.target.id);
+    const id = event.target.id.replace('storage', '');
+    this.displayData = this.displayData.filter((e) => {
+      return e.packageId != id;
+    });
+
+    if (this.displayData.length == 0) {
+      sessionStorage.clear();
+      this.display = false;
+    } else {
+      sessionStorage.setItem('cartPackage', JSON.stringify(this.displayData));
     }
   }
 
   async orderList(event: any): Promise<void> {
+    this.display = false;
     const packagesJson = sessionStorage.getItem('cartPackage');
     console.log(packagesJson);
     if (!packagesJson) {

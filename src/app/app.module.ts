@@ -8,6 +8,7 @@ import { NavigationComponent } from './navigation/navigation.component';
 import { NavComponent } from './nav/nav.component';
 import { PTypeCardComponent } from './p-type-card/p-type-card.component';
 import { FormsModule } from '@angular/forms';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { FormsModule } from '@angular/forms';
     NgbModule,
     HttpClientModule,
     FormsModule,
+    BrowserAnimationsModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
