@@ -4,7 +4,7 @@ import { PTypeCardComponent } from './p-type-card/p-type-card.component';
 
 const routes: Routes = [
   {
-    path: 'packages',
+    path: 'packages/:id',
     component: PTypeCardComponent,
   },
 ];

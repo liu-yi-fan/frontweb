@@ -2,19 +2,18 @@
 <header>
 	<!-- TOP HEADER -->
 	<div id="top-header">
-		<div class="container">
+		<div class="container" style="display: flex; justify-content: space-between;">
 	<ul class="header-links pull-left">
 
-		<li><a href="#"><i class="bi bi-house"></i>首頁</a></li>
-		<li><a href="#"><i class="bi bi-controller"></i>本期活動</a></li>
-		<li><a href="#"><i class="bi bi-hand-thumbs-up-fill"></i>推薦商品</a></li>
-		<li><a href="#"><i class="bi bi-fire"></i>熱門主題</a></li>
-		<li><a routerLink="/packages"><i class="bi bi-envelope-open"></i>包裝介紹</a></li>
-		<li><a href="#"><i class="bi bi-arrow-left-right"></i>交換禮物</a></li>
+		<li (click)="goHome()"><a href="#" style="text-decoration: none;" (click)="goHome()"><i class="bi bi-house" (click)="goHome()"></i>首頁</a></li>
+		<li><a href="#" style="text-decoration: none;"><i class="bi bi-controller"></i>本期活動</a></li>
+		<li><a href="#" style="text-decoration: none;"><i class="bi bi-hand-thumbs-up-fill"></i>推薦商品</a></li>
+		<li><a href="#" style="text-decoration: none;"><i class="bi bi-fire"></i>熱門主題</a></li>
+		<li><a routerLink="packages/:id" style="text-decoration: none;"><i class="bi bi-envelope-open"></i>包裝介紹</a></li>
+		<li><a href="#" style="text-decoration: none;"><i class="bi bi-arrow-left-right"></i>交換禮物</a></li>
 	</ul>
 	<ul class="header-links pull-right">
-		<li><a href="#"><i class="bi bi-person-fill"></i>會員登入</a></li>
-		<li><a href="#"><i class="bi bi-currency-dollar"></i>全館標示價格均為新台幣</a></li>
+		<li><a href="#" style="text-decoration: none;"><i class="bi bi-person-fill" style="color: aliceblue;"></i>{{memberState}}</a></li>
 	</ul>
 </div>
 	</div>
@@ -28,8 +27,8 @@
 				<!-- LOGO -->
 				<div class="col-md-3">
 					<div class="header-logo">
-						<a href="#" class="logo">
-							<i class="bi bi-gift-fill" style="color: aliceblue; font-size: 3em;"></i>
+						<a href="#" class="logo" style="display: flex; flex-direction: column; align-items: center;" (click)="goHome()">
+							<i class="bi bi-gift-fill" style="color: aliceblue; font-size: 1.3em;"></i>
               <span  style="color: aliceblue;">選物平台</span>
 						</a>
 					</div>
@@ -54,7 +53,7 @@
 					<div class="header-ctn">
 						<!-- Wishlist -->
 						<div>
-							<a href="#">
+							<a href="#" style="text-decoration: none;">
 								<i class="bi bi-heart"></i>
 								<span>願望清單</span>
 								<div class="qty">2</div>
@@ -63,7 +62,7 @@
 						<!-- /Wishlist -->
 						<!-- Cart -->
 						<div class="dropdown">
-							<a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
+							<a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true" style="text-decoration: none;">
 								<i class="bi bi-cart3"></i>
 								<span>我的購物車</span>
 								<div class="qty">3</div>

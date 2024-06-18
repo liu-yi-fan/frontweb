@@ -3,9 +3,8 @@
   <link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,700" rel="stylesheet">
 </head> -->
 
-  <app-navigation></app-navigation>
-
-  <router-outlet></router-outlet>
+<app-navigation [memberID]="memberID"></app-navigation>
+<router-outlet (activate)="onActivate($event)"></router-outlet>
   <app-footer></app-footer>
   <!-- <app-p-type-card></app-p-type-card> -->
   <!-- <app-nav></app-nav> -->

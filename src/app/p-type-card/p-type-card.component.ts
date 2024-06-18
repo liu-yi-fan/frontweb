@@ -2,7 +2,7 @@ import { cartPackage } from './../interface/cartPackage';
 import { selePackage } from './../interface/selePackage';
 import { packageType } from './../interface/packageType';
 import { UserServiceService } from './../user-service.service';
-import { Component } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { count, lastValueFrom } from 'rxjs';
 import {
   trigger,
@@ -11,6 +11,7 @@ import {
   animate,
   transition,
 } from '@angular/animations';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-p-type-card',
@@ -38,24 +39,37 @@ import {
     ]),
   ],
 })
-export class PTypeCardComponent {
+export class PTypeCardComponent implements OnInit {
+  @Output() memberIDChange = new EventEmitter<number>();
+
   sectionTrigger = false;
   priceCount = 0;
   display = false;
   isCollapsed = false;
 
+  memberID!: number;
   packagestyles: packageType[] = [];
   seletedPackage: selePackage[] = [];
   cartPackage: cartPackage[] = [];
   displayData: any[] = [];
 
-  constructor(private UserService: UserServiceService) {}
+  constructor(
+    private UserService: UserServiceService,
+    private route: ActivatedRoute
+  ) {}
 
   ngOnInit(): void {
     this.UserService.getPackageAPI().subscribe((data) => {
       this.packagestyles = data;
       console.log(this.packagestyles);
     });
+
+    this.memberID = +this.route.snapshot.paramMap.get('id')!;
+    console.log(this.memberID);
+    if (this.memberID !== null) {
+      this.memberIDChange.emit(this.memberID);
+      console.log('emit ok');
+    }
   }
 
   toggleCollapse() {
@@ -103,15 +117,13 @@ export class PTypeCardComponent {
       return e.quantity > 0;
     });
 
-    // sessionStorage.setItem('cartPackage', JSON.stringify(this.cartPackage));
+    if (this.memberID < 1) {
+      alert('請先登入帳號');
+      window.location.href = 'https://localhost:7066/Home/Login';
+    }
 
     const matchingItem = this.cartPackage.find((e) => e.packageId === id);
-    // if (matchingItem) {
-    //   sessionStorage.setItem('cartPackage', JSON.stringify(matchingItem));
-    //   console.log('Saved item:', matchingItem);
-    // } else {
-    //   alert('請先選取數量');
-    // }
+
     if (matchingItem) {
       // 获取当前 sessionStorage 中已有的 cartPackage 数据
       const existingCartPackagesJson = sessionStorage.getItem('cartPackage');
@@ -167,6 +179,10 @@ export class PTypeCardComponent {
   }
 
   async orderList(event: any): Promise<void> {
+    if (this.memberID < 1) {
+      alert('請先登入帳號');
+      window.location.href = 'https://localhost:7066/Home/Login';
+    }
     this.display = false;
     const packagesJson = sessionStorage.getItem('cartPackage');
     console.log(packagesJson);
@@ -193,7 +209,7 @@ export class PTypeCardComponent {
     console.log(packages);
 
     const promises = packages.map(async (element: any) => {
-      const mid = 2;
+      const mid = this.memberID;
       const pid = element.packageId;
       const qty = element.quantity;
 
@@ -215,6 +231,7 @@ export class PTypeCardComponent {
       console.error('Error handling requests:', error);
     }
 
+    window.location.href = 'https://localhost:7066/C/Cartspage';
     //********************* */
     // packages.forEach((element: any) => {
     //   let mid = 2;

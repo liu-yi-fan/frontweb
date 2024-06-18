@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, Input, SimpleChanges } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-navigation',
@@ -7,7 +7,21 @@ import { Router } from '@angular/router';
   styleUrls: ['./navigation.component.scss'],
 })
 export class NavigationComponent {
+  @Input() memberID!: number;
+  // memberIcon = false;
+  memberState = '未登入';
+
   constructor(private router: Router) {}
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes['memberID'] && this.memberID > 0) {
+      this.memberState = '登入者 :Amy Owen';
+    }
+  }
+
+  goHome() {
+    window.location.href = 'https://localhost:7066/HomePage/Search';
+  }
 
   // navigateToPackages() {
   //   this.router.navigate(['/packages']);
