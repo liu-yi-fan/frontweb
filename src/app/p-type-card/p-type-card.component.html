@@ -1,12 +1,14 @@
 
 
-<section style="display: flex; flex-direction: row; justify-content:center;">
-<div class="card" style="width: 18rem; margin: 3em;" *ngFor="let i of packagestyles" #cardDiv id="{{i.packageStyleId}}" (click)="selectedType(cardDiv)">
+<section style="height: 40em;">
+  <div style="display: flex; flex-direction: row; justify-content:center;">
+<div class="card" style="width: 18rem; margin: 6em 3em 3em 3em; " *ngFor="let i of packagestyles" #cardDiv id="{{i.packageStyleId}}" (click)="selectedType(cardDiv)">
   <img class="card-img-top" src='https://localhost:7066/assets/img/packageimages/{{i.picture}}' alt="Card image cap">
   <div class="card-body">
     <p class="card-text">{{i.styleName}}</p>
   </div>
 </div>
+  </div>
 </section>
 
 <section style="background-color: gainsboro;" *ngIf="sectionTrigger" >
@@ -21,7 +23,7 @@
       <input [value]="i.quantity" type="number" id="typeNumber" class="form-control" id="{{i.packageId}}" (change)="quantityChange($event, i)"/>
       <div style="display: flex; justify-content:space-between;margin-top: 1em;">
         <p style="margin-left: 1em;">總價:{{i.totalPrice}}</p>
-        <button style="margin-left: 1em;" type="button" class="btn btn-primary" id="bAddCart{{i.packageId}}"
+        <button style="margin-left: 1em;" type="button" class="btn btn-secondary" id="bAddCart{{i.packageId}}"
         (click)="addCart($event)">加入購物車</button>
       </div>
   </div>
@@ -55,7 +57,7 @@
   </div>
   </div>
 
-  <button type="button" class="btn btn-primary" style="margin-bottom: 2em; margin-top: 1em; margin-left: 85%;"
+  <button type="button" class="btn btn-secondary" style="margin-bottom: 2em; margin-top: 1em; margin-left: 85%;"
   (click)="orderList($event)">下一步</button>
 </section>
 
