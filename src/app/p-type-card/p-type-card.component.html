@@ -17,12 +17,12 @@
     <img class="card-img-top" style="height: 15em;" src='https://localhost:7066/assets/img/packageimages/{{i.picture}}' alt="Card image cap">
     <div class="card-body">
       <p class="card-text">{{i.packName}}</p>
-      <p class="card-text">NT.{{i.price}}</p>
+      <p class="card-text">${{i.price}}</p>
     </div>
     <div data-mdb-input-init class="form-outline" style=" margin-bottom: 2em;">
       <input [value]="i.quantity" type="number" id="typeNumber" class="form-control" id="{{i.packageId}}" (change)="quantityChange($event, i)"/>
       <div style="display: flex; justify-content:space-between;margin-top: 1em;">
-        <p style="margin-left: 1em;">總價:{{i.totalPrice}}</p>
+        <p style="margin-left: 1em;">總價: ${{i.totalPrice}}</p>
         <button style="margin-left: 1em;" type="button" class="btn btn-secondary" id="bAddCart{{i.packageId}}"
         (click)="addCart($event)">加入購物車</button>
       </div>
