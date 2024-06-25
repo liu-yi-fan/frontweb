@@ -15,7 +15,7 @@ export class NavigationComponent {
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes['memberID'] && this.memberID > 0) {
-      this.memberState = '登入者 :Amy Owen';
+      this.memberState = '登入者 :桐谷透子';
     }
   }
 
